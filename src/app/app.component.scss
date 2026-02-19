@@ -1,0 +1,32 @@
+.nav,
+.nav__lista,
+.nav__item {
+  display: flex;
+  align-items: center;
+}
+
+.nav {
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.nav__lista {
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.nav__item {
+  gap: .25rem;
+}
+
+
+.nav__link {
+  margin-left: .1rem;
+  margin-right: .5rem;
+  text-decoration: none;
+  color: #FFFFFF;
+
+  &:active {
+    text-decoration: underline;
+  }
+}
