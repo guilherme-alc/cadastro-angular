@@ -1,1 +1,63 @@
-<p>cadastro works!</p>
+<div fxLayout="row" fxLayoutAlign="center">
+
+  <div fxLayout="column" fxFlex="800px">
+    <form #clientesFrm="ngForm">
+        <mat-card>
+
+          <mat-card-header>
+            <mat-card-title>Dados Pessoais</mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+              <mat-form-field class="width-100">
+                <mat-label>Nome: *</mat-label>
+                <input type="text" placeholder="Mariana Ribeiro" matInput>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+              <mat-form-field class="width-100">
+                <mat-label>E-mail: *</mat-label>
+                <input type="email" placeholder="mariana@email.com" matInput>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+              <mat-form-field class="width-60">
+                <mat-label>CPF: *</mat-label>
+                <input type="text" matInput>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+              <mat-form-field>
+                <mat-label>Data Nascimento: *</mat-label>
+                <input type="date" matInput>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions class="card__actions">
+            <div class="card__butons">
+
+              <button mat-flat-button color="primary">
+                <mat-icon fontIcon="save"></mat-icon>Salvar
+              </button>
+
+              <button mat-flat-button color="primary">
+                <mat-icon fontIcon="edit"></mat-icon>Atualizar
+              </button>
+
+              <button mat-flat-button color="accent">
+                <mat-icon fontIcon="backspace"></mat-icon>Limpar
+              </button>
+
+            </div>
+          </mat-card-actions>
+
+        </mat-card>
+    </form>
+  </div>
+
+</div>
