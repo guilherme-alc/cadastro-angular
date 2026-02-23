@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center">
 
-  <div fxLayout="column" fxFlex="800px">
-    <form #clientesFrm="ngForm">
+  <div fxLayout="column" class="frm__container width-100">
+    <form #clientesFrm="ngForm" (ngSubmit)="salvarCliente()">
         <mat-card>
 
           <mat-card-header>
@@ -12,28 +12,30 @@
             <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
               <mat-form-field class="width-100">
                 <mat-label>Nome: *</mat-label>
-                <input type="text" placeholder="Mariana Ribeiro" matInput>
+                <input type="text" name="nome" placeholder="Mariana Ribeiro" matInput [(ngModel)]="cliente.nome">
               </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
               <mat-form-field class="width-100">
                 <mat-label>E-mail: *</mat-label>
-                <input type="email" placeholder="mariana@email.com" matInput>
+                <input type="email" name="email" placeholder="mariana@email.com" matInput [(ngModel)]="cliente.email">
               </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
               <mat-form-field class="width-60">
                 <mat-label>CPF: *</mat-label>
-                <input type="text" matInput>
+                <input type="text" name="cpf" matInput [(ngModel)]="cliente.cpf">
               </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
               <mat-form-field>
                 <mat-label>Data Nascimento: *</mat-label>
-                <input type="date" matInput>
+                <input name="dataNascimento" matInput [matDatepicker]="picker" [(ngModel)]="cliente.dataNascimento" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
             </div>
           </mat-card-content>
@@ -41,7 +43,7 @@
           <mat-card-actions class="card__actions">
             <div class="card__butons">
 
-              <button mat-flat-button color="primary">
+              <button mat-flat-button color="primary" type="submit">
                 <mat-icon fontIcon="save"></mat-icon>Salvar
               </button>
 
@@ -49,7 +51,7 @@
                 <mat-icon fontIcon="edit"></mat-icon>Atualizar
               </button>
 
-              <button mat-flat-button color="accent">
+              <button mat-flat-button color="accent" type="reset">
                 <mat-icon fontIcon="backspace"></mat-icon>Limpar
               </button>
 
