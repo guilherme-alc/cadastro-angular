@@ -12,30 +12,48 @@
             <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
               <mat-form-field class="width-100">
                 <mat-label>Nome: *</mat-label>
-                <input type="text" name="nome" placeholder="Mariana Ribeiro" matInput [(ngModel)]="cliente.nome">
+                <input type="text" name="nome" placeholder="Mariana Ribeiro" matInput [(ngModel)]="cliente.nome" required minlength="3" maxlength="100" #nomeCtrl="ngModel">
+                <mat-error *ngIf="nomeCtrl.invalid && nomeCtrl.touched">
+                  <span *ngIf="nomeCtrl.errors?.['required']">Nome é obrigatório.</span>
+                  <span *ngIf="nomeCtrl.errors?.['minlength']">Nome muito curto (mínimo 3 caracteres).</span>
+                  <span *ngIf="nomeCtrl.errors?.['maxlength']">Nome muito longo (máximo 100 caracteres).</span>
+                </mat-error>
               </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
               <mat-form-field class="width-100">
                 <mat-label>E-mail: *</mat-label>
-                <input type="email" name="email" placeholder="mariana@email.com" matInput [(ngModel)]="cliente.email">
+                <input type="email" name="email" placeholder="mariana@email.com" matInput [(ngModel)]="cliente.email" required maxlength="100" #emailCtrl="ngModel">
+                <mat-error *ngIf="emailCtrl.invalid && emailCtrl.touched">
+                  <span *ngIf="emailCtrl.errors?.['required']">E-mail é obrigatório.</span>
+                  <span *ngIf="emailCtrl.errors?.['email']">Formato de e-mail inválido.</span>
+                  <span *ngIf="emailCtrl.errors?.['maxlength']">E-mail muito longo (máximo 100 caracteres).</span>
+                </mat-error>
               </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
               <mat-form-field class="width-60">
                 <mat-label>CPF: *</mat-label>
-                <input type="text" name="cpf" matInput [(ngModel)]="cliente.cpf">
+                <input type="text" name="cpf" matInput [(ngModel)]="cliente.cpf" required minlength="11" maxlength="14" #cpfCtrl="ngModel">
+                <mat-error *ngIf="cpfCtrl.invalid && cpfCtrl.touched">
+                  <span *ngIf="cpfCtrl.errors?.['required']">CPF é obrigatório.</span>
+                  <span *ngIf="cpfCtrl.errors?.['minlength']">CPF incompleto.</span>
+                  <span *ngIf="cpfCtrl.errors?.['maxlength']">CPF incorreto.</span>
+                </mat-error>
               </mat-form-field>
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
               <mat-form-field>
                 <mat-label>Data Nascimento: *</mat-label>
-                <input name="dataNascimento" matInput [matDatepicker]="picker" [(ngModel)]="cliente.dataNascimento" readonly>
+                <input name="dataNascimento" matInput [matDatepicker]="picker" [(ngModel)]="cliente.dataNascimento" required #dataNascimentoCtrl="ngModel" readonly>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="dataNascimentoCtrl.invalid && dataNascimentoCtrl.touched">
+                  <span *ngIf="dataNascimentoCtrl.errors?.['required']">Data de nascimento é obrigatória.</span>
+                </mat-error>
               </mat-form-field>
             </div>
           </mat-card-content>
@@ -43,7 +61,7 @@
           <mat-card-actions class="card__actions">
             <div class="card__butons">
 
-              <button mat-flat-button color="primary" type="submit">
+              <button mat-flat-button color="primary" type="submit" [disabled]="!clientesFrm.form.valid">
                 <mat-icon fontIcon="save"></mat-icon>Salvar
               </button>
 
