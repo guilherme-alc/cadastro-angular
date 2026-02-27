@@ -34,7 +34,16 @@ export class ClienteService {
     }
   }
 
-  public obterClientesStorage(): Cliente[] {
+  public pesquisarClientes(nome?:string): Cliente[] {
+    const clientes = this.obterClientesStorage();
+
+    if (!nome)
+      return clientes;
+
+    return clientes.filter(c => c.nome?.toLowerCase().includes(nome.toLowerCase()) || false);
+  }
+
+  private obterClientesStorage(): Cliente[] {
     try {
       const repositorio = localStorage.getItem(ClienteService.REPO_CLIENTES);
 
