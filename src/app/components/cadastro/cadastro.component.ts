@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { NgForm, FormsModule } from '@angular/forms';
 import { Cliente, createCliente } from '../../models/cliente';
 import { ClienteService } from '../../services/cliente.service';
+import { FlexLayoutModule } from '@angular/flex-layout'
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
-import { FlexLayoutModule } from '@angular/flex-layout'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
@@ -34,35 +34,69 @@ import { MatIconModule } from '@angular/material/icon';
 })
 
 export class CadastroComponent {
-  public cliente: Cliente = createCliente();
+  protected cliente: Cliente = createCliente();
+  protected modoEdicao: boolean = false;
+
   @ViewChild('clientesFrm') clientesFrm?: NgForm;
-  constructor (private service: ClienteService, private snackBar: MatSnackBar) { }
 
-  public salvarCliente() {
+  constructor (
+    private service: ClienteService,
+    private snackBar: MatSnackBar) { }
+
+  protected enviarCliente() : void {
     try {
-      this.service.salvar(this.cliente);
-      this.cliente = createCliente();
+      if(!this.modoEdicao) {
+        this.service.cadastrar(this.cliente);
 
-      this.clientesFrm?.resetForm(this.cliente);
-      this.snackBar.open('Cliente salvo com sucesso.', undefined, {
-        duration: 3500,
-        horizontalPosition: 'end',
-        verticalPosition: 'top'
-      });
-    } catch (e: any) {
-      if (e && e.message === 'Email já cadastrado') {
-        this.snackBar.open('Este e-mail já está cadastrado.', 'Fechar', {
-          duration: 5000,
+        this.cliente = createCliente();
+        this.clientesFrm?.resetForm(this.cliente);
+
+        this.snackBar.open('Cliente cadastrado com sucesso.', undefined, {
+          duration: 2000,
           horizontalPosition: 'end',
           verticalPosition: 'top'
         });
+        return;
+      }
+
+      this.service.atualizar(this.cliente);
+
+      this.snackBar.open('Cliente atualizado com sucesso.', undefined, {
+        duration: 2000,
+        horizontalPosition: 'end',
+        verticalPosition: 'top'
+      });
+
+    } catch (e: any) {
+      if (e && e.message === 'Email já cadastrado') {
+        this.snackBar.open('Este e-mail já está cadastrado.', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top'
+        });
+
+      } else if (e && e.message === 'Cliente não encontrado para atualização') {
+        this.snackBar.open('Cliente não encontrado para atualização.', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top'
+        });
+
       } else {
-        this.snackBar.open('Erro ao salvar cliente. Veja console.', 'Fechar', {
-          duration: 5000,
+        this.snackBar.open('Erro ao salvar cliente.', 'Fechar', {
+          duration: 3000,
           horizontalPosition: 'end',
           verticalPosition: 'top'
         });
       }
+    }
+  }
+
+  ngOnInit() {
+    const clienteEdit = history.state as Cliente;
+    if (clienteEdit?.id) {
+      this.cliente = clienteEdit;
+      this.modoEdicao = true;
     }
   }
 }

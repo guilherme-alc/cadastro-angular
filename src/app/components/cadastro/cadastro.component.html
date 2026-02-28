@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center">
 
   <div fxLayout="column" class="frm__container width-100">
-    <form #clientesFrm="ngForm" (ngSubmit)="salvarCliente()">
+    <form #clientesFrm="ngForm" (ngSubmit)="enviarCliente()">
         <mat-card>
 
           <mat-card-header>
@@ -93,11 +93,11 @@
           <mat-card-actions class="card__actions">
             <div class="card__butons">
 
-              <button mat-flat-button color="primary" type="submit" [disabled]="!clientesFrm.form.valid">
+              <button mat-flat-button color="primary" type="submit" *ngIf="!modoEdicao" [disabled]="!clientesFrm.form.valid">
                 <mat-icon fontIcon="save"></mat-icon>Salvar
               </button>
 
-              <button mat-flat-button color="primary">
+              <button mat-flat-button color="primary" type="submit" *ngIf="modoEdicao" [disabled]="!clientesFrm.form.valid">
                 <mat-icon fontIcon="edit"></mat-icon>Atualizar
               </button>
 

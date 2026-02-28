@@ -9,7 +9,8 @@ export class ClienteService {
   constructor() { }
 
   private static readonly REPO_CLIENTES : string = "_CLIENTES";
-  public salvar(cliente: Cliente): void {
+
+  public cadastrar(cliente: Cliente): void {
     try {
       const repositorio = this.obterClientesStorage();
 
@@ -29,7 +30,28 @@ export class ClienteService {
         JSON.stringify(repositorio)
       );
     } catch (e) {
-      console.error('Erro ao salvar cliente', e);
+      console.error('Erro ao cadastrar cliente', e);
+      throw e;
+    }
+  }
+
+  public atualizar(cliente: Cliente): void {
+    try {
+      const repositorio = this.obterClientesStorage();
+
+      const index = repositorio.findIndex(c => c.id === cliente.id);
+      if (index === -1) {
+        throw new Error('Cliente não encontrado para atualização');
+      }
+
+      repositorio[index] = cliente;
+
+      localStorage.setItem(
+        ClienteService.REPO_CLIENTES,
+        JSON.stringify(repositorio)
+      );
+    } catch (e) {
+      console.error('Erro ao atualizar cliente', e);
       throw e;
     }
   }
