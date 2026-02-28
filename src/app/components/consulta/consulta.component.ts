@@ -10,7 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,7 +26,7 @@ import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
     MatButtonModule,
     MatIconModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
   ],
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.scss'
@@ -33,13 +34,15 @@ import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 
 export class ConsultaComponent {
   dataSource = new MatTableDataSource<Cliente>();
-  displayedColumns: string[] = ['id', 'nome', 'email', 'cpf'];
+  displayedColumns: string[] = ['id', 'nome', 'email', 'cpf', 'edicao'];
   valorPesquisa: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private service: ClienteService) {}
+  constructor(
+    private service: ClienteService,
+    private router: Router) {}
 
   ngOnInit() {
     this.dataSource.data = this.service.pesquisarClientes();
@@ -50,7 +53,16 @@ export class ConsultaComponent {
     this.dataSource.sort = this.sort;
   }
 
-  pesquisar(nome: string) {
+  protected pesquisar(nome: string) : void {
     this.dataSource.data = this.service.pesquisarClientes(nome);
+  }
+
+  protected prepararEdicao(cliente: Cliente) : void {
+    this.router.navigate(
+      ['/cadastro'],
+      {
+        state: cliente
+      }
+    );
   }
 }
