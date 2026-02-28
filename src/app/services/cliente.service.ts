@@ -40,7 +40,7 @@ export class ClienteService {
     if (!nome)
       return clientes;
 
-    return clientes.filter(c => c.nome?.toLowerCase().includes(nome.toLowerCase()) || false);
+    return clientes.filter(c => c.nome?.toLowerCase().trim().includes(nome.toLowerCase().trim()) || false);
   }
 
   private obterClientesStorage(): Cliente[] {

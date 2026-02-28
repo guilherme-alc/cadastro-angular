@@ -9,7 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 
 
 @Component({
@@ -23,17 +24,20 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ],
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.scss'
 })
+
 export class ConsultaComponent {
   dataSource = new MatTableDataSource<Cliente>();
   displayedColumns: string[] = ['id', 'nome', 'email', 'cpf'];
   valorPesquisa: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private service: ClienteService) {}
 
@@ -43,6 +47,7 @@ export class ConsultaComponent {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   pesquisar(nome: string) {

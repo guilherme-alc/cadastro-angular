@@ -1,3 +1,39 @@
 .frm__container {
   max-width: 800px;
 }
+
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-responsive table {
+  width: 100%;
+  min-width: 600px;
+}
+
+@media (max-width: 600px) {
+  table.mat-table thead {
+    display: none;
+  }
+
+  table.mat-table tr.mat-row {
+    display: block;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+    padding-bottom: 0.5rem;
+  }
+
+  table.mat-table td.mat-cell {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+  }
+
+  table.mat-table td.mat-cell::before {
+    content: attr(data-label);
+    font-weight: 600;
+    margin-right: 1rem;
+    color: rgba(0,0,0,0.6);
+  }
+}
