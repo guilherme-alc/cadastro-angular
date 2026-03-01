@@ -58,7 +58,8 @@
                   matInput
                   [(ngModel)]="cliente.cpf"
                   required minlength="11" maxlength="14"
-                  #cpfCtrl="ngModel">
+                  #cpfCtrl="ngModel"
+                  mask="000.000.000-00">
 
                 <mat-error *ngIf="cpfCtrl.invalid && cpfCtrl.touched">
                   <span *ngIf="cpfCtrl.errors?.['required']">CPF é obrigatório.</span>
@@ -77,8 +78,7 @@
                   [matDatepicker]="picker"
                   [(ngModel)]="cliente.dataNascimento"
                   required
-                  #dataNascimentoCtrl="ngModel"
-                  readonly>
+                  #dataNascimentoCtrl="ngModel">
 
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>

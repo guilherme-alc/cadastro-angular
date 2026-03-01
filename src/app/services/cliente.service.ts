@@ -82,4 +82,26 @@ export class ClienteService {
       return [];
     }
   }
+
+  public excluir(id: string): void {
+
+    try {
+      const repositorio = this.obterClientesStorage();
+
+      const index = repositorio.findIndex(c => c.id === id);
+      if (index === -1) {
+        throw new Error('Cliente não encontrado para exclusão');
+      }
+
+      repositorio.splice(index, 1);
+
+      localStorage.setItem(
+        ClienteService.REPO_CLIENTES,
+        JSON.stringify(repositorio)
+      );
+    } catch (e) {
+      console.error('Erro ao excluir cliente', e);
+      throw e;
+    }
+  }
 }

@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-cadastro',
@@ -27,7 +28,11 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     MatDatepickerModule,
     MatSnackBarModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgxMaskDirective
+  ],
+  providers: [
+    provideNgxMask()
   ],
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.scss']

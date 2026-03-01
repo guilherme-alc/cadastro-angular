@@ -12,6 +12,12 @@
   min-width: 600px;
 }
 
+.botoes_acao {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 600px) {
   table.mat-table thead {
     display: none;

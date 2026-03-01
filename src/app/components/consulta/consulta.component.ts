@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 
@@ -27,6 +28,7 @@ import { Router } from '@angular/router';
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
+    MatSnackBarModule
   ],
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.scss'
@@ -34,7 +36,7 @@ import { Router } from '@angular/router';
 
 export class ConsultaComponent {
   dataSource = new MatTableDataSource<Cliente>();
-  displayedColumns: string[] = ['id', 'nome', 'email', 'cpf', 'edicao'];
+  displayedColumns: string[] = ['id', 'nome', 'email', 'cpf', 'acoes'];
   valorPesquisa: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -42,7 +44,9 @@ export class ConsultaComponent {
 
   constructor(
     private service: ClienteService,
-    private router: Router) {}
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.dataSource.data = this.service.pesquisarClientes();
@@ -64,5 +68,30 @@ export class ConsultaComponent {
         state: cliente
       }
     );
+  }
+
+  protected excluir(cliente: Cliente) : void {
+    try {
+      if(confirm('Deseja realmente excluir este cliente?')) {
+        this.service.excluir(cliente.id);
+        this.dataSource.data = this.service.pesquisarClientes(this.valorPesquisa);
+      }
+    }
+    catch (e: any) {
+      if(e && e.message === 'Cliente não encontrado para exclusão') {
+        this.snackBar.open('Cliente não encontrado para atualização.', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top'
+        });
+      }
+      else {
+        this.snackBar.open('Erro ao salvar cliente.', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top'
+        });
+      }
+    }
   }
 }
