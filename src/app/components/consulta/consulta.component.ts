@@ -13,6 +13,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 
 @Component({
@@ -28,9 +29,13 @@ import { Router } from '@angular/router';
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgxMaskPipe
   ],
   templateUrl: './consulta.component.html',
+    providers: [
+    provideNgxMask()
+  ],
   styleUrl: './consulta.component.scss'
 })
 

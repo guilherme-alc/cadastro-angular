@@ -23,6 +23,7 @@ export class ClienteService {
         throw new Error('Email já cadastrado');
       }
 
+      cliente.cpf = cliente.cpf?.replace(/\D/g, '') || '';
       repositorio.push(cliente);
 
       localStorage.setItem(
@@ -43,6 +44,15 @@ export class ClienteService {
       if (index === -1) {
         throw new Error('Cliente não encontrado para atualização');
       }
+      const emailNormalizado = cliente.email?.toLowerCase().trim() || '';
+      const existeEmail = repositorio.some((c, i) =>
+        i !== index && (c.email?.toLowerCase().trim() || '') === emailNormalizado
+      );
+
+      if (existeEmail) {
+        throw new Error('Email já cadastrado');
+      }
+      cliente.cpf = cliente.cpf?.replace(/\D/g, '') || '';
 
       repositorio[index] = cliente;
 
