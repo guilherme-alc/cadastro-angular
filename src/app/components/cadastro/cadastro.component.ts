@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { NgxMaskDirective, provideNgxMask, NgxMaskService } from 'ngx-mask';
 
 @Component({
   selector: 'app-cadastro',
@@ -46,7 +46,8 @@ export class CadastroComponent {
 
   constructor (
     private service: ClienteService,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar,
+    private maskService: NgxMaskService) { }
 
   protected enviarCliente() : void {
     try {
@@ -103,5 +104,10 @@ export class CadastroComponent {
       this.cliente = clienteEdit;
       this.modoEdicao = true;
     }
+  }
+
+  protected onDataInput(e: Event): void {
+    const inp = e.target as HTMLInputElement;
+    inp.value = this.maskService.applyMask(inp.value, '00/00/0000');
   }
 }

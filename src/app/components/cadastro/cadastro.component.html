@@ -78,7 +78,8 @@
                   [matDatepicker]="picker"
                   [(ngModel)]="cliente.dataNascimento"
                   required
-                  #dataNascimentoCtrl="ngModel">
+                  #dataNascimentoCtrl="ngModel"
+                  (input)="onDataInput($event)">
 
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
