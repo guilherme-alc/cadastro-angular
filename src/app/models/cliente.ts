@@ -6,6 +6,8 @@ export interface Cliente {
   cpf: string;
   dataNascimento: Date | null;
   email: string;
+  uf: string;
+  municipio: string;
 }
 
 export function createCliente(): Cliente {
@@ -14,6 +16,8 @@ export function createCliente(): Cliente {
     nome: '',
     cpf: '',
     dataNascimento: null,
-    email: ''
+    email: '',
+    uf: '',
+    municipio: ''
   };
 }
