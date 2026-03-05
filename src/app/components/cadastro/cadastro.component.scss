@@ -1,5 +1,20 @@
 .frm__container {
   max-width: 800px;
+  padding: 1rem;  // Espaço nas laterais
+  margin: 0 auto; // Centralizar
+
+  @media (max-width: 600px) {
+    padding: 0.5rem;
+    max-width: 100%;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+
+  @media (max-width: 600px) {
+    font-size: 0.875rem;
+  }
 }
 
 .card__actions {
@@ -13,10 +28,35 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1rem;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 0.5rem;
+
+    button {
+      width: 100%;
+    }
+  }
 }
 
-.container__cpf-data {
+.container__two_inputs {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 0.5rem;
+
+    div {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 601px) {
+    div {
+      flex: 1;
+      min-width: 200px;
+    }
+  }
 }
